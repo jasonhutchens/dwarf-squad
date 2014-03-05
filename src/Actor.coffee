@@ -5,7 +5,7 @@ DwarfSquad = window.DwarfSquad
 Entity = DwarfSquad.Entity
 
 offset_x = (body)->
-  x = body.x + body.halfWidth
+  x = body.x + body.width/2
 
 offset_y = (body)->
   y = body.y - 1.1 * body.height
