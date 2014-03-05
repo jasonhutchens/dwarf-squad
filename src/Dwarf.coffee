@@ -1,6 +1,11 @@
 #= require Walker
 #= require Key
 
+DwarfSquad = window.DwarfSquad
+
+Key = DwarfSquad.Key
+Walker = DwarfSquad.Walker
+
 class Dwarf extends Walker
   constructor:(game, level, i)->
     super(game, level, i)
@@ -61,5 +66,4 @@ class Dwarf extends Walker
     if @carrying == null
       @carrying = entity
 
-root = exports ? window
-root.Dwarf = Dwarf
+DwarfSquad.Dwarf = Dwarf

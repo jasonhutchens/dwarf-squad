@@ -1,40 +1,68 @@
-#= require SceneManager
 #= require Level
 #= require Splash
 
+DwarfSquad = window.DwarfSquad
+
+SceneManager = DwarfSquad.SceneManager
+Level = DwarfSquad.Level
+Splash = DwarfSquad.Splash
+
 class Main extends Phaser.State
-  # Weird bug with certain objects and particular versions of
-  # coffeescript; without this call, instanceof checks fail
-  constructor:(fullscreen, scene)->
-    super
-    @starting_scene = scene
-    @start_fullscreen = fullscreen
+  constructor:(@parent='')->
+
+  run:(debug = false)->
+    mode = if debug then Phaser.CANVAS else Phaser.AUTO
+    new Phaser.Game(896, 504, mode, @parent, this)
+
+  destroy:->
+    destroy(@text)
+    destroy(@graphics)
 
   preload:()=>
-    @game.stage.backgroundColor = '#000000'
-    @game.stage.scale.pageAlignHorizontally = true;
-    @game.stage.scale.refresh();
-    message = "Loading..."
-    style = {
-      font: "20px Arial",
-      fill: "#FFFFFF",
+    @game.stage.disableVisibilityChange=true
+
+    @game.stage.scale.pageAlignHorizontally = true
+    @game.stage.scale.pageAlignVertically = false
+    @game.stage.scale.setShowAll()
+    @game.stage.scale.refresh()
+
+    @game.stage.scale.enterLandscape.add =>
+      @game.stage.scale.setShowAll()
+      @game.stage.scale.refresh()
+
+    @game.stage.scale.enterPortrait.add =>
+      @game.stage.scale.setShowAll()
+      @game.stage.scale.refresh()
+
+    message = "=== D W A R F S Q U A D ===\nis\nLOADING"
+    style =
+      font: "30px Courier"
+      fill: "#00ff44"
       align: "center"
-    }
     @text = @game.add.text(@game.world.centerX, @game.world.centerY, message, style)
-    @text.anchor.setTo(0.5, 0.5);
-    @game.load.image('logo', 'assets/logo.png')
-    @game.load.image('labs', 'assets/labs.png')
-    @game.load.spritesheet('dwarf1', 'assets/dwarf_01.png', 32, 32)
-    @game.load.spritesheet('dwarf2', 'assets/dwarf_04.png', 32, 32)
-    @game.load.spritesheet('dwarf3', 'assets/dwarf_03.png', 32, 32)
-    @game.load.spritesheet('dwarf4', 'assets/dwarf_02.png', 32, 32)
-    @game.load.spritesheet('skeleton', 'assets/skel.png', 32, 32)
-    @game.load.spritesheet('sheep', 'assets/sheep.png', 32, 32)
-    @game.load.spritesheet('arrow', 'assets/arrows.png', 16, 16)
-    @game.load.spritesheet('objects', 'assets/objects.png', 32, 32)
-    @game.load.image('key',   'assets/key.png')
-    @game.load.spritesheet('world', 'assets/world.png', 32, 32)
-    @game.load.image('boulder', 'assets/boulder.png')
+    @text.anchor.setTo(0.5, 0.5)
+    @graphics = @game.add.graphics(0, 0)
+
+    @graphics.lineStyle(1, 0x5588cc, 1)
+    @graphics.drawRect(199, 339, 502, 22)
+
+    @game.load.onLoadComplete.addOnce(@ready)
+
+    @game.state.add('splash', new Splash(), false)
+    @game.state.add('level', new Level(), false)
+    @game.load.image('logo', 'images/logo.png')
+    @game.load.image('labs', 'images/labs.png')
+    @game.load.spritesheet('dwarf1', 'images/dwarf_01.png', 32, 32)
+    @game.load.spritesheet('dwarf2', 'images/dwarf_04.png', 32, 32)
+    @game.load.spritesheet('dwarf3', 'images/dwarf_03.png', 32, 32)
+    @game.load.spritesheet('dwarf4', 'images/dwarf_02.png', 32, 32)
+    @game.load.spritesheet('skeleton', 'images/skel.png', 32, 32)
+    @game.load.spritesheet('sheep', 'images/sheep.png', 32, 32)
+    @game.load.spritesheet('arrow', 'images/arrows.png', 16, 16)
+    @game.load.spritesheet('objects', 'images/objects.png', 32, 32)
+    @game.load.image('key',   'images/key.png')
+    @game.load.spritesheet('world', 'images/world.png', 32, 32)
+    @game.load.image('boulder', 'images/boulder.png')
     @game.load.tilemap('level01', 'maps/level01.json', null, Phaser.Tilemap.TILED_JSON)
     @game.load.tilemap('level02', 'maps/level02.json', null, Phaser.Tilemap.TILED_JSON)
     @game.load.tilemap('level03', 'maps/level03.json', null, Phaser.Tilemap.TILED_JSON)
@@ -56,26 +84,24 @@ class Main extends Phaser.State
     @game.load.audio('coin3', 'sounds/Coin3.mp3');
     @game.load.audio('coin4', 'sounds/Coin4.mp3');
     @game.load.audio('burp', 'sounds/Burp.mp3');
-    @game.world.remove(@text)
-    @text.destroy()
 
-  create:()=>
+  loadRender:->
+    @graphics.beginFill(0x00ff44)
+    @graphics.drawRect(200, 340, 5 * @game.load.progress, 20)
+    @graphics.endFill()
+
+  render:->
+    @graphics.clear()
+    @loadRender() unless @game.load.hasLoaded
+
+  ready:=>
+    @text.alpha = 0.0
     @music = @game.add.audio('splash');
     @music.play('', 0, 4, true)
     @game.physics.gravity.y = 0
-    @game.stage.fullScreenScaleMode = Phaser.StageScaleMode.SHOW_ALL;
-    @scene_manager = new SceneManager()
-    @scene_manager.add('splash', new Splash(@game, @scene_manager))
-    @scene_manager.add('level', new Level(@game, @scene_manager))
-    @scene_manager.init(@starting_scene)
-    if @start_fullscreen
-      @game.input.onDown.add(@gofull);
+    @startGame()
 
-  gofull:=>
-    @game.stage.scale.startFullScreen();
+  startGame:=>
+    @game.state.start('splash')
 
-  update:=>
-    @scene_manager.update()
-
-root = exports ? window
-root.Main = Main
+DwarfSquad.Main = Main

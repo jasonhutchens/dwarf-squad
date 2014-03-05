@@ -1,3 +1,5 @@
+DwarfSquad = window.DwarfSquad
+
 class Trigger
   constructor:(game, level, properties)->
     @game = game
@@ -136,5 +138,4 @@ class Trigger
       @shadow.destroy()
     @signal.dispatch()
 
-root = exports ? window
-root.Trigger = Trigger
+DwarfSquad.Trigger = Trigger

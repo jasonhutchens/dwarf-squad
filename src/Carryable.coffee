@@ -1,4 +1,8 @@
-#= require Entity
+#= require Actor
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
 
 class Carryable extends Actor
   constructor:(game, level, properties)->
@@ -40,5 +44,4 @@ class Carryable extends Actor
       if @on_pickup
         on_pickup(player)
 
-root = exports ? window
-root.Carryable = Carryable
+DwarfSquad.Carryable = Carryable

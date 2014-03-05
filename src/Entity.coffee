@@ -1,3 +1,5 @@
+DwarfSquad = window.DwarfSquad
+
 class Entity
   constructor:(game)->
     @game = game
@@ -30,5 +32,4 @@ class Entity
 
   say:(dialogue)=>
 
-root = exports ? window
-root.Entity = Entity
+DwarfSquad.Entity = Entity

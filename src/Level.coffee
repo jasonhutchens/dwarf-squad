@@ -10,6 +10,23 @@
 #= require Door
 #= require Boulder
 #= require Treasure
+#= require Walker
+
+DwarfSquad = window.DwarfSquad
+
+Dwarf = DwarfSquad.Dwarf
+Sheep = DwarfSquad.Sheep
+Controller = DwarfSquad.Controller
+Pad = DwarfSquad.Pad
+Scene = DwarfSquad.Scene
+Exit = DwarfSquad.Exit
+Trigger = DwarfSquad.Trigger
+Skeleton = DwarfSquad.Skeleton
+Switcher = DwarfSquad.Switcher
+Door = DwarfSquad.Door
+Boulder = DwarfSquad.Boulder
+Treasure = DwarfSquad.Treasure
+Walker = DwarfSquad.Walker
 
 class Level extends Scene
   init:=>
@@ -207,5 +224,4 @@ class Level extends Scene
               trigger.signal.add =>
                 @pad.enable()
 
-root = exports ? window
-root.Level = Level
+DwarfSquad.Level = Level

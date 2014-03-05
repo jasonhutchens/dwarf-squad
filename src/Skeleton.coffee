@@ -1,5 +1,9 @@
 #= require Walker
 
+DwarfSquad = window.DwarfSquad
+
+Walker = DwarfSquad.Walker
+
 class Skeleton extends Walker
 
   create_sprite:=>
@@ -52,5 +56,4 @@ class Skeleton extends Walker
     else
       @accelerate(0, 0)
 
-root = exports ? window
-root.Skeleton = Skeleton
+DwarfSquad.Skeleton = Skeleton

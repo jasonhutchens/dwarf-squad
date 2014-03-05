@@ -1,4 +1,8 @@
-#= require Entity
+#= require Actor
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
 
 class Exit extends Actor
   constructor:(game, level, properties)->
@@ -46,5 +50,4 @@ class Exit extends Actor
       if @count == +@properties['count']
         @level.signals[@properties['id']].dispatch()
 
-root = exports ? window
-root.Exit = Exit
+DwarfSquad.Exit = Exit

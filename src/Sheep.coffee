@@ -1,5 +1,9 @@
 #= require Walker
 
+DwarfSquad = window.DwarfSquad
+
+Walker = DwarfSquad.Walker
+
 directions = (wasTouching, touching)->
   allow = []
   if not (touching.up or wasTouching.up) 
@@ -82,5 +86,4 @@ class Sheep extends Walker
     else
       @accelerate(0, 0)
 
-root = exports ? window
-root.Sheep = Sheep
+DwarfSquad.Sheep = Sheep

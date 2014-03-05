@@ -1,4 +1,10 @@
 #= require Actor
+#= require Pad
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
+Pad = DwarfSquad.Pad
 
 class Walker extends Actor
   constructor:(game, level, player_number = -1)->
@@ -90,5 +96,4 @@ class Walker extends Actor
   cool_down_swap:(time)=>
     @swap_cool = time
 
-root = exports ? window
-root.Walker = Walker
+DwarfSquad.Walker = Walker

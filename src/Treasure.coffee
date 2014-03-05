@@ -1,7 +1,14 @@
-#= require Entity
+#= require Actor
 #= require Key
 #= require Dwarf
 #= require Door
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
+Key = DwarfSquad.Key
+Dwarf = DwarfSquad.Dwarf
+Door = DwarfSquad.Door
 
 class Treasure extends Actor
   constructor:(game, level, properties)->
@@ -46,5 +53,4 @@ class Treasure extends Actor
       @level.signals['finish'].dispatch()
     return false
 
-root = exports ? window
-root.Treasure = Treasure
+DwarfSquad.Treasure = Treasure

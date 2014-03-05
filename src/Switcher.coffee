@@ -1,7 +1,14 @@
-#= require Entity
+#= require Actor
 #= require Key
 #= require Dwarf
 #= require Door
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
+Key = DwarfSquad.Key
+Dwarf = DwarfSquad.Dwarf
+Door = DwarfSquad.Door
 
 class Switcher extends Actor
   constructor:(game, level, properties)->
@@ -51,5 +58,4 @@ class Switcher extends Actor
     @on = true
     return false # don't bounce off it
 
-root = exports ? window
-root.Switcher = Switcher
+DwarfSquad.Switcher = Switcher

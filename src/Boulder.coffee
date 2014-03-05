@@ -1,3 +1,9 @@
+#= require Actor
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
+
 class Boulder extends Actor
   constructor:(game, level)->
     super(game)
@@ -20,5 +26,4 @@ class Boulder extends Actor
     @collide(@level.walls)
     @game.debug.renderSpriteBody(@sprite);
 
-root = exports ? window
-root.Boulder = Boulder
+DwarfSquad.Boulder = Boulder

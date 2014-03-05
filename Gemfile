@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
 gem 'middleman'
-gem 'middleman-livereload', '~> 3.1.0'
+gem 'middleman-livereload'
+gem 'middleman-gh-pages'

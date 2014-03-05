@@ -1,3 +1,5 @@
+DwarfSquad = window.DwarfSquad
+
 class Pad
   constructor:(game)->
     @game = game
@@ -149,5 +151,4 @@ Pad.LEFT = 3
 
 Pad.SENSITIVITY = 0.8
 
-root = exports ? window
-root.Pad = Pad
+DwarfSquad.Pad = Pad

@@ -1,6 +1,12 @@
-#= require Entity
+#= require Actor
 #= require Key
 #= require Dwarf
+
+DwarfSquad = window.DwarfSquad
+
+Actor = DwarfSquad.Actor
+Key = DwarfSquad.Key
+Dwarf = DwarfSquad.Dwarf
 
 class Door extends Actor
   constructor:(game, level, properties)->
@@ -71,5 +77,4 @@ class Door extends Actor
       # ok unlock!
       @open()
 
-root = exports ? window
-root.Door = Door
+DwarfSquad.Door = Door

@@ -1,5 +1,9 @@
 #= require Entity
 
+DwarfSquad = window.DwarfSquad
+
+Entity = DwarfSquad.Entity
+
 offset_x = (body)->
   x = body.x + body.halfWidth
 
@@ -17,7 +21,6 @@ class Actor extends Entity
     @chat_colour = '#FFFFFF'
     @shadow_colour = '#000000'
     @shadow_offset = [1,2]
-
 
   set_physics: =>
     @sprite.body.friction = 2500
@@ -45,7 +48,6 @@ class Actor extends Entity
       this.sprite.y = this.sprite.float_y if this.sprite.float_y
       this.oldPreUpdate()
     ##### End of dat super dodgy hack
-
 
   set_caption:(message, time, size, color=null, sound = null, volume = 0.5)=>
     color ||= @chat_colour
@@ -134,5 +136,4 @@ class Actor extends Entity
         if x.properties && x.properties.id == @properties.target
           x.targeted msg
 
-root = exports ? window
-root.Actor = Actor
+DwarfSquad.Actor = Actor

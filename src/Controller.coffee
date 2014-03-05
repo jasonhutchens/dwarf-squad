@@ -1,5 +1,9 @@
 #= require Pad
 
+DwarfSquad = window.DwarfSquad
+
+Pad = DwarfSquad.Pad
+
 class Controller
   constructor:(player)->
     @player = player
@@ -27,5 +31,4 @@ class Controller
     @ax = 0
     @ay = 0
 
-root = exports ? window
-root.Controller = Controller
+DwarfSquad.Controller = Controller

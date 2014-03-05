@@ -1,3 +1,5 @@
+DwarfSquad = window.DwarfSquad
+
 class Scene
   constructor:(game, director)->
     @game = game
@@ -9,5 +11,4 @@ class Scene
 
   update:=>
 
-root = exports ? window
-root.Scene = Scene
+DwarfSquad.Scene = Scene
